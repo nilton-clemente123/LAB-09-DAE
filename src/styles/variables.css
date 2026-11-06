@@ -1,0 +1,51 @@
+/* ============================================================
+   ARQUITECTURA DE CSS
+   ------------------------------------------------------------
+   1) variables.css  -> Design tokens (colores, tipografía, espacios…)
+   2) global.css     -> Reset y estilos base de todo el sitio
+   3) App.css        -> Maquetación general de la aplicación
+   4) <Componente>.css -> Estilos específicos de cada componente
+   ------------------------------------------------------------
+   Estos tokens se definen como variables CSS (custom properties)
+   para reutilizarlos en toda la interfaz desde un único lugar.
+   ============================================================ */
+
+:root {
+  /* Colores */
+  --color-bg: #0b1220;
+  --color-surface: #121c2e;
+  --color-surface-alt: #1c2a42;
+  --color-border: #2a3a55;
+  --color-primary: #e11d48; /* rojo cine */
+  --color-primary-hover: #be123c;
+  --color-accent: #fbbf24; /* dorado para estrellas */
+  --color-text: #f1f5f9;
+  --color-text-muted: #94a3b8;
+
+  /* Tipografía */
+  --font-base: 'Segoe UI', system-ui, -apple-system, Roboto, sans-serif;
+  --font-heading: 'Arial Black', 'Segoe UI', system-ui, sans-serif;
+
+  /* Espaciado */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+
+  /* Bordes redondeados */
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+
+  /* Sombras */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.35);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.45);
+
+  /* Ancho máximo del contenedor */
+  --container-max: 1200px;
+}
