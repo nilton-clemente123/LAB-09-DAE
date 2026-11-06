@@ -1,16 +1,86 @@
-# React + Vite
+# CineLux — Cartelera de películas
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Proyecto de la asignatura **Desarrollo de Aplicaciones Empresariales (ReactJS · 4-C24-A)**.
 
-Currently, two official plugins are available:
+Aplicación de cartelera de cine construida con **React + Vite** que muestra una película
+destacada (Hero) y la cartelera completa a partir de un archivo de datos.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## 🚀 Puesta en marcha
 
-## React Compiler
+```bash
+npm install     # instala las dependencias
+npm run dev     # levanta el servidor de desarrollo (http://localhost:5173)
+npm run build   # compila para producción
+npm run lint    # ejecuta el linter (Oxlint)
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 🧱 Estructura del proyecto
 
-## Expanding the Oxlint configuration
+```
+src/
+├── components/          # Componentes funcionales de la interfaz
+│   ├── Header.jsx         → Nombre del cine y navegación
+│   ├── Hero.jsx           → Banner de la película destacada
+│   ├── MovieCard.jsx      → Tarjeta de una película
+│   ├── MovieList.jsx      → Recorre la cartelera con map
+│   └── Footer.jsx         → Datos de contacto e información
+├── data/
+│   └── moviesData.js      → Archivo de datos de la cartelera
+├── styles/              # Arquitectura de CSS
+│   ├── variables.css      → Design tokens (colores, tipografía, espacios…)
+│   ├── global.css         → Reset y estilos base
+│   ├── App.css            → Maquetación general
+│   └── <Componente>.css   → Estilos específicos de cada componente
+├── App.jsx              # Compone Header + Hero + MovieList + Footer
+└── main.jsx             # Punto de entrada de React
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## 🎬 Recorte de la interfaz en componentes
+
+| Componente | Responsabilidad | Props que recibe |
+|---|---|---|
+| `Header` | Marca del cine + barra de navegación | — |
+| `Hero` | Banner de la película destacada | `movie` |
+| `MovieList` | Recorre la cartelera y dibuja las tarjetas | `movies` |
+| `MovieCard` | Tarjeta: imagen, título, valoración y horarios | `movie` |
+| `Footer` | Contacto, horario de taquilla y redes | — |
+
+**Flujo de datos:** los datos viven una única vez en `moviesData.js`. `App.jsx` los lee y los
+pasa por *props* a sus hijos: `Hero` recibe la película destacada y `MovieList` recibe el array
+completo, que a su vez pasa una película a cada `MovieCard`. Los componentes hijos no importan
+los datos directamente, solo los reciben.
+
+## 🗂️ Datos de la cartelera (`src/data/moviesData.js`)
+
+El array `movies` contiene 8 películas, cada una con:
+
+- `id` — identificador único (se usa como `key` en el `map`)
+- `title` — título
+- `image` — URL de la imagen
+- `synopsis` — sinopsis
+- `classification` — clasificación (AA, A, B, B12, B15, C)
+- `rating` — valoración (sobre 5)
+- `schedules` — horarios de proyección
+- `featured` — booleano que marca la película destacada del Hero
+
+La función `getFeaturedMovie()` devuelve la película destacada (o la primera como respaldo).
+
+## 📦 Dependencias
+
+| Dependencia | Versión | Uso |
+|---|---|---|
+| `react` | ^19.3.1 | Librería de la interfaz |
+| `react-dom` | ^19.3.1 | Renderizado en el DOM |
+| `vite` | ^8.3.6 | Bundler y servidor de desarrollo |
+| `@vitejs/plugin-react` | ^6.1.2 | Soporte de React (HMR) en Vite |
+| `oxlint` | ^1.90.0 | Linter del proyecto |
+
+## 🐛 Errores típicos registrados
+
+Durante el desarrollo se provocaron y registraron tres errores habituales en React:
+
+| Error | Mensaje |
+|---|---|
+| Usar `class` en vez de `className` | `Invalid DOM property 'class'. Did you mean 'className'?` |
+| Devolver dos nodos raíz | `Adjacent JSX elements must be wrapped in an enclosing tag. Did you want a JSX fragment '<>...</>'?` |
+| Olvidar la `key` en el `map` | `Each child in a list should have a unique "key" prop.` |
