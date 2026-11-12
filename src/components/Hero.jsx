@@ -1,7 +1,9 @@
 import '../styles/Hero.css'
+import Button from './Button'
+import MovieSearch from './MovieSearch'
 
 // Banner de la película destacada. Recibe la película por props.
-function Hero({ movie }) {
+function Hero({ movie, search, onSearchChange }) {
   return (
     <section className="hero" id="inicio">
       <img className="hero__image" src={movie.image} alt={movie.title} />
@@ -14,9 +16,12 @@ function Hero({ movie }) {
           <span>Clasificación: {movie.classification}</span>
           <span>⭐ {movie.rating}</span>
         </div>
-        <button type="button" className="hero__cta">
-          Comprar boletos
-        </button>
+        <div className="hero__actions">
+          <Button onClick={() => document.getElementById('cartelera')?.scrollIntoView({ behavior: 'smooth' })}>
+            Ver cartelera
+          </Button>
+          <MovieSearch value={search} onChange={onSearchChange} />
+        </div>
       </div>
     </section>
   )

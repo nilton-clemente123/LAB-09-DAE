@@ -1,8 +1,9 @@
 import '../styles/MovieCard.css'
+import Button from './Button'
 
 // Tarjeta de una película. Recibe la película por props y muestra
 // su imagen, título, valoración y horarios.
-function MovieCard({ movie }) {
+function MovieCard({ movie, isFavorite, onToggleFavorite }) {
   return (
     <article className="movie-card">
       <img className="movie-card__image" src={movie.image} alt={movie.title} />
@@ -19,6 +20,15 @@ function MovieCard({ movie }) {
             </span>
           ))}
         </div>
+        <Button
+          className="movie-card__favorite"
+          variant={isFavorite ? 'active' : 'outline'}
+          aria-pressed={isFavorite}
+          aria-label={`${isFavorite ? 'Quitar' : 'Agregar'} ${movie.title} ${isFavorite ? 'de' : 'a'} favoritas`}
+          onClick={() => onToggleFavorite(movie.id)}
+        >
+          {isFavorite ? '★ Favorita' : '☆ Agregar a favoritas'}
+        </Button>
       </div>
     </article>
   )

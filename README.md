@@ -5,6 +5,32 @@ Proyecto de la asignatura **Desarrollo de Aplicaciones Empresariales (ReactJS ·
 Aplicación de cartelera de cine construida con **React + Vite** que muestra una película
 destacada (Hero) y la cartelera completa a partir de un archivo de datos.
 
+## Estado, búsqueda y favoritas
+
+| Dato recordado | Dónde vive | Motivo y persistencia |
+|---|---|---|
+| Texto actual de búsqueda (`search`) | `App` | Lo comparten el campo de `Hero` y el filtrado de `MovieList`. Se actualiza en cada pulsación y se reinicia al recargar. |
+| Texto con retardo (`debouncedSearch`) | `App` | Permite filtrar solo después de 500 ms sin escribir; se comparte con `MovieList` y se reinicia al recargar. El temporizador se cancela al cambiar el texto o desmontar el componente. |
+| Identificadores de favoritas (`favorites`) | `App` | Las tarjetas reciben el estado y la función para alternarlo por props. Se guardan en `localStorage` con la clave `cinelux-favorites` y se recuperan al iniciar. Si el almacenamiento falla o contiene datos inválidos, se comienza con una lista vacía. |
+
+La cartelera y la película destacada son datos estáticos de `src/data/moviesData.js`, no estado mutable. Los resultados filtrados se calculan en `MovieList` a partir de la cartelera y la búsqueda, por lo que no se duplican en otro estado. El botón **Ver cartelera** desplaza a esa sección; no realiza una compra.
+
+Para comprobar el retardo, abre la consola del navegador y escribe varias letras seguidas: el campo cambia inmediatamente, pero el mensaje `[MovieSearch] Filtrado:` y los resultados aparecen tras una pausa de 500 ms. Busca un título inexistente para mostrar el estado vacío. Marca una favorita, recarga y comprueba que sigue marcada; vuelve a pulsar para quitarla.
+
+## 📸 Capturas de la búsqueda
+
+### Búsqueda con resultados
+
+Busca, por ejemplo, `aurora` y toma una captura donde se vean el texto del buscador y la tarjeta de **Código Aurora**. Guarda la imagen como `docs/busqueda-con-resultados.png` y descomenta la siguiente línea para mostrarla en el README:
+
+<!-- ![Búsqueda con películas coincidentes](docs/busqueda-con-resultados.png) -->
+
+### Búsqueda sin resultados
+
+Al buscar un título que no existe, la cartelera muestra el estado vacío:
+
+![Búsqueda sin películas coincidentes](docs/estado-vacio.png)
+
 ## 🚀 Puesta en marcha
 
 ```bash
@@ -21,6 +47,8 @@ src/
 ├── components/          # Componentes funcionales de la interfaz
 │   ├── Header.jsx         → Nombre del cine y navegación
 │   ├── Hero.jsx           → Banner de la película destacada
+│   ├── Button.jsx         → Botón reutilizable con variantes
+│   ├── MovieSearch.jsx    → Campo de búsqueda controlado
 │   ├── MovieCard.jsx      → Tarjeta de una película
 │   ├── MovieList.jsx      → Recorre la cartelera con map
 │   └── Footer.jsx         → Datos de contacto e información
@@ -41,8 +69,10 @@ src/
 |---|---|---|
 | `Header` | Marca del cine + barra de navegación | — |
 | `Hero` | Banner de la película destacada | `movie` |
-| `MovieList` | Recorre la cartelera y dibuja las tarjetas | `movies` |
-| `MovieCard` | Tarjeta: imagen, título, valoración y horarios | `movie` |
+| `Button` | Botón reutilizable | `children`, `variant` y atributos del botón |
+| `MovieSearch` | Campo de búsqueda controlado | `value`, `onChange` |
+| `MovieList` | Filtra la cartelera y dibuja las tarjetas o el estado vacío | `movies`, `search`, `favorites`, `onToggleFavorite` |
+| `MovieCard` | Tarjeta y acción de favorita | `movie`, `isFavorite`, `onToggleFavorite` |
 | `Footer` | Contacto, horario de taquilla y redes | — |
 
 **Flujo de datos:** los datos viven una única vez en `moviesData.js`. `App.jsx` los lee y los
