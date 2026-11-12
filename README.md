@@ -20,8 +20,8 @@ Para comprobar el retardo, abre la consola del navegador y escribe varias letras
 ## 📸 Capturas de la búsqueda
 
 ### Búsqueda con resultados
+<img width="846" height="634" alt="image" src="https://github.com/user-attachments/assets/3f8ac7a9-12c6-4c52-b16e-41ac82d5dcb5" />
 
-Busca, por ejemplo, `aurora` y toma una captura donde se vean el texto del buscador y la tarjeta de **Código Aurora**. Guarda la imagen como `docs/busqueda-con-resultados.png` y descomenta la siguiente línea para mostrarla en el README:
 
 <!-- ![Búsqueda con películas coincidentes](docs/busqueda-con-resultados.png) -->
 
