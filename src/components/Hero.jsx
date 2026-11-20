@@ -21,6 +21,7 @@ function Hero({ movie, search, onSearchChange }) {
             Ver cartelera
           </Button>
           <MovieSearch value={search} onChange={onSearchChange} />
+          <Button variant="outline" onClick={() => onSearchChange('')} disabled={!search}>Limpiar filtro</Button>
         </div>
       </div>
     </section>

@@ -1,6 +1,6 @@
 import '../styles/Header.css'
 
-function Header() {
+function Header({ favoriteCount }) {
   return (
     <header className="header">
       <div className="container header__inner">
@@ -13,13 +13,14 @@ function Header() {
               <a href="#cartelera">Cartelera</a>
             </li>
             <li>
-              <a href="#cartelera">Estrenos</a>
+              <a href="#estrenos">Estrenos</a>
             </li>
             <li>
               <a href="#contacto">Contacto</a>
             </li>
           </ul>
         </nav>
+        <span className="header__favorites" aria-label={`${favoriteCount} películas favoritas`}>★ Favoritas: {favoriteCount}</span>
       </div>
     </header>
   )

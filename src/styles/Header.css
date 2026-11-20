@@ -41,3 +41,9 @@
 .header__nav-list a:hover {
   color: var(--color-text);
 }
+
+.header__favorites { color: var(--color-accent); font-weight: 700; white-space: nowrap; }
+@media (max-width: 520px) {
+  .header__inner { gap: var(--space-3); }
+  .header__nav-list { gap: var(--space-3); flex-wrap: wrap; }
+}

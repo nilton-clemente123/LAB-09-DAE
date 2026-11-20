@@ -111,3 +111,9 @@ p {
 .text-muted {
   color: var(--color-text-muted);
 }
+
+/* Utilidades compartidas para títulos y controles. */
+.section-title { font-size: clamp(1.5rem, 3vw, 2rem); margin-bottom: var(--space-4); }
+.text-center { text-align: center; }
+button:disabled { opacity: 0.55; cursor: not-allowed; }
+:focus-visible { outline: 3px solid var(--color-accent); outline-offset: 3px; }

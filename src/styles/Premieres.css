@@ -1,0 +1,11 @@
+.premieres { margin-top: var(--space-8); }
+.premieres__controls { display: flex; justify-content: flex-end; gap: var(--space-2); margin-bottom: var(--space-3); }
+.premieres__track { display: flex; gap: var(--space-4); overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: var(--space-3); }
+.premieres__card { flex: 0 0 180px; overflow: hidden; scroll-snap-align: start; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-md); }
+.premieres__card img { width: 100%; aspect-ratio: 2 / 3; object-fit: cover; }
+.premieres__card div { padding: var(--space-3); }
+.premieres__card h3 { font-size: 1rem; }
+.premieres__skeletons { display: flex; gap: var(--space-4); overflow: hidden; }
+.premieres__skeleton { flex: 0 0 180px; height: 320px; border-radius: var(--radius-md); background: linear-gradient(100deg, var(--color-surface) 25%, var(--color-surface-alt) 50%, var(--color-surface) 75%); background-size: 200% 100%; animation: shimmer 1.5s infinite; }
+@keyframes shimmer { to { background-position: -200% 0; } }
+@media (prefers-reduced-motion: reduce) { .premieres__skeleton { animation: none; } }

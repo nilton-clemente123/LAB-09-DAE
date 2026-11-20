@@ -5,6 +5,9 @@ Proyecto de la asignatura **Desarrollo de Aplicaciones Empresariales (ReactJS ·
 Aplicación de cartelera de cine construida con **React + Vite** que muestra una película
 destacada (Hero) y la cartelera completa a partir de un archivo de datos.
 
+La arquitectura actualizada, el árbol de componentes y las instrucciones para comprobar
+los nuevos hooks y estrenos se encuentran en `docs/entregable.md`.
+
 ## Estado, búsqueda y favoritas
 
 | Dato recordado | Dónde vive | Motivo y persistencia |
@@ -15,7 +18,7 @@ destacada (Hero) y la cartelera completa a partir de un archivo de datos.
 
 La cartelera y la película destacada son datos estáticos de `src/data/moviesData.js`, no estado mutable. Los resultados filtrados se calculan en `MovieList` a partir de la cartelera y la búsqueda, por lo que no se duplican en otro estado. El botón **Ver cartelera** desplaza a esa sección; no realiza una compra.
 
-Para comprobar el retardo, abre la consola del navegador y escribe varias letras seguidas: el campo cambia inmediatamente, pero el mensaje `[MovieSearch] Filtrado:` y los resultados aparecen tras una pausa de 500 ms. Busca un título inexistente para mostrar el estado vacío. Marca una favorita, recarga y comprueba que sigue marcada; vuelve a pulsar para quitarla.
+Para comprobar el retardo, escribe varias letras seguidas: el campo cambia inmediatamente, pero los resultados aparecen tras una pausa de 500 ms. Busca un título inexistente para mostrar el estado vacío. Marca una favorita, recarga y comprueba que sigue marcada; vuelve a pulsar para quitarla.
 
 ## 📸 Capturas de la búsqueda
 
@@ -38,6 +41,7 @@ npm install     # instala las dependencias
 npm run dev     # levanta el servidor de desarrollo (http://localhost:5173)
 npm run build   # compila para producción
 npm run lint    # ejecuta el linter (Oxlint)
+npm test        # ejecuta las pruebas con Node.js
 ```
 
 ## 🧱 Estructura del proyecto
@@ -67,11 +71,11 @@ src/
 
 | Componente | Responsabilidad | Props que recibe |
 |---|---|---|
-| `Header` | Marca del cine + barra de navegación | — |
-| `Hero` | Banner de la película destacada | `movie` |
+| `Header` | Marca del cine, navegación y contador | `favoriteCount` |
+| `Hero` | Banner de la película destacada y búsqueda | `movie`, `search`, `onSearchChange` |
 | `Button` | Botón reutilizable | `children`, `variant` y atributos del botón |
 | `MovieSearch` | Campo de búsqueda controlado | `value`, `onChange` |
-| `MovieList` | Filtra la cartelera y dibuja las tarjetas o el estado vacío | `movies`, `search`, `favorites`, `onToggleFavorite` |
+| `MovieList` | Filtra la cartelera y dibuja las tarjetas o el estado vacío | `movies`, `search`, `favorites`, `onToggleFavorite`, `columns` |
 | `MovieCard` | Tarjeta y acción de favorita | `movie`, `isFavorite`, `onToggleFavorite` |
 | `Footer` | Contacto, horario de taquilla y redes | — |
 

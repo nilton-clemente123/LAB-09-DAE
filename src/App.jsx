@@ -3,13 +3,17 @@ import Header from './components/Header'
 import Hero from './components/Hero'
 import MovieList from './components/MovieList'
 import Footer from './components/Footer'
+import Premieres from './components/Premieres'
+import { useDebounce } from './hooks/useDebounce'
+import './styles/Toast.css'
 import { movies, getFeaturedMovie } from './data/moviesData'
 import './styles/App.css'
 
 function App() {
   const featuredMovie = getFeaturedMovie()
   const [search, setSearch] = useState('')
-  const [debouncedSearch, setDebouncedSearch] = useState('')
+  const debouncedSearch = useDebounce(search, 500)
+  const [notice, setNotice] = useState(null)
   const [favorites, setFavorites] = useState(() => {
     try {
       const stored = JSON.parse(localStorage.getItem('cinelux-favorites') || '[]')
@@ -20,12 +24,10 @@ function App() {
   })
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      console.log('[MovieSearch] Filtrado:', search)
-      setDebouncedSearch(search)
-    }, 500)
+    if (!notice) return undefined
+    const timer = setTimeout(() => setNotice(null), 3000)
     return () => clearTimeout(timer)
-  }, [search])
+  }, [notice])
 
   useEffect(() => {
     try {
@@ -36,6 +38,9 @@ function App() {
   }, [favorites])
 
   function toggleFavorite(id) {
+    const movie = movies.find((item) => item.id === id)
+    const wasFavorite = favorites.includes(id)
+    setNotice({ message: `${movie.title} ${wasFavorite ? 'se quitó de' : 'se agregó a'} favoritas.` })
     setFavorites((current) => current.includes(id)
       ? current.filter((favoriteId) => favoriteId !== id)
       : [...current, id])
@@ -43,12 +48,16 @@ function App() {
 
   return (
     <div className="app">
-      <Header />
+      <Header favoriteCount={favorites.length} />
       <main className="app__main">
         <Hero movie={featuredMovie} search={search} onSearchChange={setSearch} />
-        <MovieList movies={movies} search={debouncedSearch} favorites={favorites} onToggleFavorite={toggleFavorite} />
+        <Premieres />
+        <MovieList movies={movies} search={search === '' ? '' : debouncedSearch} favorites={favorites} onToggleFavorite={toggleFavorite} />
       </main>
       <Footer />
+      <div className="toast-region" role="status" aria-live="polite" aria-atomic="true">
+        {notice && <p className="toast">{notice.message}</p>}
+      </div>
     </div>
   )
 }
